@@ -60,3 +60,15 @@ a:hover {
   align-items: center;
   margin: 20px 0;
 }
+input {
+  margin: 4rem;
+}
+li {
+  background: whitesmoke !important;
+  margin: 5rem;
+  justify-self: left;
+  color: black;
+}
+span {
+  color: #7a2c9e;
+}
