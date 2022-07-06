@@ -19,17 +19,11 @@ const ChatView = () => {
 
   useEffect(() => {
     if (state.message !== '') {
-      ws.send(
-        JSON.stringify({
-          username: state.userName,
-          message: state.message,
-        })
-      );
-      // dispatch({
-      //   type: 'addToAll',
-      //   user: state.userName,
-      //   message: state.message,
-      // });
+      const json = JSON.stringify({
+        username: state.userName,
+        message: state.message,
+      });
+      ws.send(json);
     }
   }, [state.message]);
 
@@ -47,14 +41,15 @@ const ChatView = () => {
   };
 
   //WebSocket here
-
   ws.onopen = () => {
     console.log('Web socket is activated!');
   };
 
   //Gathering messages from WebSocket and save them to reducer
   ws.onmessage = (JSONmessage) => {
-    const { username, message } = JSON.parse(JSONmessage.data);
+    console.log(JSONmessage);
+    const data = JSON.parse(JSONmessage.data).utf8Data;
+    const { username, message } = JSON.parse(data);
     dispatch({ type: 'addToAll', user: username, payload: message });
   };
 
